@@ -1,0 +1,15 @@
+.content-wrapper>.content {
+    padding: 20px .5rem;
+}
+.form-group {
+    margin-bottom: 0px;
+}
+.content-wrapper {
+    background-color: #fff;
+}
+.gap{
+    padding:10px 0px;
+}
+.btn-block+.btn-block {
+    margin-top: 0px;
+}
