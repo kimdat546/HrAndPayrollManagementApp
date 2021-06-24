@@ -1,0 +1,42 @@
+.content-wrapper>.content {
+    padding: 20px .5rem;
+}
+.form-group {
+    margin-bottom: 0px;
+}
+.content-wrapper {
+    background-color: #fff;
+}
+.gap{
+    padding:10px 0px;
+}
+.btn-block+.btn-block {
+    margin-top: 0px;
+}
+.select2-container .select2-selection--single{
+    height: 38px;
+    line-height: unset;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 37px;
+    right: 6px;
+}
+table.dataTable>thead>tr>th:not(.sorting_disabled), table.dataTable>thead>tr>td:not(.sorting_disabled) {
+    padding-right: unset;
+}
+table.dataTable tbody tr.selected {
+    background-color: #ffc107;
+    color: #fff;
+}
+.btn-warning {
+    color: #fff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    box-shadow: none;
+}
+.modal-title {
+    text-transform: capitalize;
+}
+.info-box .info-box-content {
+    color: #333;
+}

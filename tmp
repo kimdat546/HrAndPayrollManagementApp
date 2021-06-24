@@ -1,0 +1,37 @@
+// app.post('/api/search', async (req, res) => {
+//     try {
+//         var idEmployee = req.body.id;
+//         if (idEmployee != '') {
+//             let result1, result2
+//             result1 = await mssql.query`select Personal.Employee_ID, First_Name, Last_Name,
+//             Gender, Ethnicity, Benefit_Plans,Salary,Percentage_CoPay,Department 
+//             from Personal,Benefit_Plans,Job_History 
+//             where Personal.Benefit_Plans = Benefit_Plans.Benefit_Plan_ID 
+//             and Personal.Employee_ID = Job_History.Employee_ID 
+//             and Personal.Employee_ID = ${idEmployee}`
+//             result1 = result1.recordset
+//             result2 = await ExecuteMysql(`SELECT employee.Employee_ID, vacationdays, payamount 
+//             FROM employee,payrates 
+//             where employee.idpayrates = payrates.idpayrates
+//             and employee.Employee_ID = ${idEmployee}`)
+//             var result = merge(result1, result2);
+//             res.status(200).json({ success: true, result })
+//         } else {
+//             let result1, result2
+//             result1 = await mssql.query`select Personal.Employee_ID, First_Name, Last_Name,
+//             Gender, Ethnicity, Benefit_Plans,Salary,Percentage_CoPay,Department 
+//             from Personal,Benefit_Plans,Job_History 
+//             where Personal.Benefit_Plans = Benefit_Plans.Benefit_Plan_ID 
+//             and Personal.Employee_ID = Job_History.Employee_ID`
+//             result1 = result1.recordset
+//             result2 = await ExecuteMysql(`SELECT employee.Employee_ID, vacationdays, payamount 
+//             FROM employee,payrates 
+//             where employee.idpayrates = payrates.idpayrates`)
+//             var result = merge(result1, result2);
+//             res.status(200).json({ success: true, result })
+//         }
+//     } catch (err) {
+//         console.log(err)
+//         res.status(500).json({ success: false, message: `server internal error ${err}` })
+//     }
+// })

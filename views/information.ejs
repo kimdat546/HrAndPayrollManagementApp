@@ -1,0 +1,185 @@
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content mt-4">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="input-group">
+                        <input type="search" class="searchbar form-control form-control-lg"
+                            placeholder="Enter ID ... " name="searchbar" autocomplete="off" spellcheck="false">
+                        <div class="input-group-append">
+                            <button id="btn-search" type="submit" class="btn btn-lg btn-default">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gap"></div>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control float-right" id="reservation">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                        <select id="department" class="form-control select2" style="width: 100%;">
+                            <option></option>
+                            <% department.forEach(function (item) { %>
+                                <option value="<%- item.Department %>">
+                                    <%- item.Department %>
+                                </option>
+                                <% }); %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="gap"></div>
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="card">
+                        <table id="tableinfo" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Ethnicity </th>
+                                    <th>Benefit plan</th>
+                                    <th>Total earnings</th>
+                                    <th>Total vacation days</th>
+                                    <th>Avg benefits</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% result.forEach(function (item) { %>
+                                    <tr>
+                                        <td>
+                                            <%- item.Employee_ID %>
+                                        </td>
+                                        <td>
+                                            <%- item.First_Name %> <%- item.Last_Name %>
+                                        </td>
+                                        <td>
+                                            <%- item.Gender %>
+                                        </td>
+                                        <td>
+                                            <%- item.Ethnicity %>
+                                        </td>
+                                        <td>
+                                            <%- item.Plan_Name %>
+                                        </td>
+                                        <td>
+                                            <%= item.Salary + item.payamount  %>
+                                        </td>
+                                        <td>
+                                            <%- item.vacationdays  %>
+                                        </td>
+                                        <td>
+                                            <%- item.Percentage_CoPay  %> %
+                                        </td>
+                                        <td>
+                                            <%- item.Department  %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Ethnicity </th>
+                                    <th>Benefit plan</th>
+                                    <th>Total earnings</th>
+                                    <th>Total vacation days</th>
+                                    <th>Avg benefits</th>
+                                    <th>Department</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+<script type="text/javascript">
+    // $(document).ready(function () {
+    //     var inputID = $('input[name="searchbar"]').val();
+    //     $.ajax({
+    //         url: '/api/search',
+    //         method: 'POST',
+    //         contentType: 'application/json',
+    //         data: JSON.stringify({ id: inputID }),
+    //         success: function (response) {
+    //             var tbodyEl = $('tbody');
+
+    //             tbodyEl.html('');
+
+    //             response.result.forEach(function (employee) {
+    //                 tbodyEl.append('\
+    //                     <tr>\
+    //                         <td>' + employee.Employee_ID + '</td>\
+    //                         <td>' + employee.First_Name + ' ' + employee.Last_Name + '</td>\
+    //                         <td>' + employee.Gender + '</td>\
+    //                         <td>' + employee.Ethnicity + '</td>\
+    //                         <td>' + employee.Benefit_Plans + '</td>\
+    //                         <td>' + parseInt(employee.Salary + employee.payamount) + '</td>\
+    //                         <td>' + employee.vacationdays + '</td>\
+    //                         <td>' + employee.Percentage_CoPay + '%' + '</td>\
+    //                     </tr>\
+    //                 ');
+    //             });
+    //         }
+    //     });
+    // })
+    // $(function () {
+    //     $('input[name="searchbar"]').keyup(function (e) {
+    //         e.preventDefault();
+    //         var inputID = $('input[name="searchbar"]').val();
+    //         $.ajax({
+    //             url: '/api/search',
+    //             method: 'POST',
+    //             contentType: 'application/json',
+    //             data: JSON.stringify({ id: inputID }),
+    //             success: function (response) {
+    //                 var tbodyEl = $('tbody');
+
+    //                 tbodyEl.html('');
+
+    //                 response.result.forEach(function (employee) {
+    //                     tbodyEl.append('\
+    //                     <tr>\
+    //                         <td>' + employee.Employee_ID + '</td>\
+    //                         <td>' + employee.First_Name + ' ' + employee.Last_Name + '</td>\
+    //                         <td>' + employee.Gender + '</td>\
+    //                         <td>' + employee.Ethnicity + '</td>\
+    //                         <td>' + employee.Benefit_Plans + '</td>\
+    //                         <td>' + parseInt(employee.Salary + employee.payamount) + '</td>\
+    //                         <td>' + employee.vacationdays + '</td>\
+    //                         <td>' + employee.Percentage_CoPay + '%' + '</td>\
+    //                     </tr>\
+    //                 ');
+    //                 });
+    //             }
+    //         });
+    //     });
+    // });
+</script>

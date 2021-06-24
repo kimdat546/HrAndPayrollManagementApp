@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+
+    </title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <!-- <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"> -->
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css"> -->
+    <!-- datatables -->
+    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- BS Stepper -->
+    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
+    <link rel="stylesheet" href="dist/css/style.css">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <%- include('../partials/preloader.ejs') %>
+            <!-- Header -->
+            <%- include('../partials/header.ejs') %>
+                <!-- Sidebar -->
+                <%- include('../partials/sidebar.ejs') %>
+                    <!-- Main -->
+                    <%- body %>
+                        <!-- Footer -->
+                        <%- include('../partials/footer.ejs') %>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 -->
+    <script src="plugins/select2/js/select2.full.min.js"></script>
+    <!-- ChartJS -->
+    <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
+    <!-- Sparkline -->
+    <!-- <script src="plugins/sparklines/sparkline.js"></script> -->
+    <!-- JQVMap -->
+    <!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script> -->
+    <!-- <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
+    <!-- jQuery Knob Chart -->
+    <!-- <script src="plugins/jquery-knob/jquery.knob.min.js"></script> -->
+    <!-- <script src="plugins/jquery/jquery.min.js"></script> -->
+    <!-- <script src="plugins/moment/moment.min.js"></script> -->
+    <!-- daterangepicker -->
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <!-- <script src="plugins/summernote/summernote-bs4.min.js"></script> -->
+    <!-- overlayScrollbars -->
+    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
+    <!-- dataTables -->
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="plugins/jszip/jszip.min.js"></script>
+    <script src="plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <!-- BS-Stepper -->
+    <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- <script src="dist/js/pages/dashboard.js"></script> -->
+    <script>
+        $(function () {
+            //Date range picker
+            $('#reservation').daterangepicker();
+            $('#reservation').on('apply.daterangepicker', function (ev, picker) {
+                console.log(picker.startDate.format('YYYY-MM-DD'))
+                console.log(picker.endDate.format('YYYY-MM-DD'))
+            })
+            $('#department').select2({
+                placeholder: "Select department",
+                allowClear: true
+            })
+            // l - Length changing
+            // f - Filtering input
+            // t - The Table!
+            // i - Information
+            // p - Pagination
+            // r - pRocessing
+            // < and > - div elements
+            // < "#id" and > - div with an id
+            // < "class" and > - div with a class
+            // <"#id.class" and > - div with an id and class
+            const tableinfo = $("#tableinfo").DataTable({
+                "dom": 'rtp ',
+                "columnDefs": [
+                    {
+                        "targets": [8],
+                        "visible": false
+                    }
+                ]
+            })
+            $('input[name="searchbar"]').on('keyup change', function () {
+                tableinfo.columns(0).search(this.value).draw()
+            })
+            $('#department').on('change', function () {
+                tableinfo.columns(8).search(this.value).draw()
+            })
+
+            $('#shareholder').select2({
+                placeholder: "Select shareholder status",
+                allowClear: true
+            })
+            const tablemanagement = $("#tablemanagement").DataTable({
+                "dom": 'rtp '
+            })
+
+            $('#button').click(function () {
+                table.row('.selected').remove().draw(false)
+            })
+            $('input[name="searchbar"]').on('keyup change', function () {
+                tablemanagement.columns(0).search(this.value).draw()
+            })
+            $('#shareholder').on('change', function () {
+                tablemanagement.columns(8).search(this.value).draw()
+            })
+            var datarow = undefined
+            $('#tablemanagement tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected')
+                }
+                else {
+                    tablemanagement.$('tr.selected').removeClass('selected')
+                    $(this).addClass('selected')
+                }
+                datarow = tablemanagement.row(this).data()
+                console.log(datarow)
+            })
+            $('#popupmana').on('show.bs.modal', function (event) {
+                let button = $(event.relatedTarget)
+                let action = button.data('action')
+                let modal = $(this)
+                modal.find('.modal-title').text(action + ' employee')
+                switch (action) {
+                    case 'add': {
+                        modal.find('.modal-footer button.btnok').attr('action', 'add')
+                    }
+                        break;
+                    case 'edit': {
+                        if (datarow) {
+                            modal.find('.modal-body input[name="id"]').val(datarow[0])
+                            modal.find('.modal-body input[name="firstname"]').val(datarow[1])
+                            modal.find('.modal-body input[name="lastname"]').val(datarow[2])
+                            modal.find('.modal-body input[name="address"]').val(datarow[3])
+                            modal.find('.modal-body input[name="email"]').val(datarow[4])
+                            modal.find('.modal-body input[name="phone"]').val(datarow[5])
+                            modal.find('.modal-body input[name="gender"]').val(datarow[6])
+                            modal.find('.modal-body input[name="shareholderstatus"]').val(datarow[7])
+                            modal.find('.modal-body input[name="benefits"]').val(datarow[8])
+                            modal.find('.modal-footer button.btnok').attr('action', 'edit')
+                        }
+                        else {
+                            alert('Please select a row')
+                        }
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            })
+            $('#popupdelete').on('show.bs.modal', function (event) {
+                let button = $(event.relatedTarget)
+                let action = button.data('action')
+                let modal = $(this)
+                modal.find('.modal-footer button.btnok').attr('action', 'delete')
+                if (!datarow) {
+                    alert('Please select a row')
+                }
+                else modal.find('.modal-body input[name="id"]').val(datarow[0])
+            })
+            $('.btnclose').on('click', function () {
+                $('button.btnok').attr("action", "")
+            })
+            $('button.btnok').on('click', function () {
+                let btnaction = $('button.btnok').attr("action")
+                let inputID = $('#popupmana input[name="id"]').val();
+                let firstname = $('#popupmana input[name="firstname"]').val();
+                let lastname = $('#popupmana input[name="lastname"]').val();
+                let address = $('#popupmana input[name="address"]').val();
+                let email = $('#popupmana input[name="email"]').val();
+                let phone = $('#popupmana input[name="phone"]').val();
+                let gender = $('#popupmana input[name="gender"]').val();
+                let shareholderstatus = $('#popupmana input[name="shareholderstatus"]').val();
+                let benefits = $('#popupmana input[name="benefits"]').val();
+                $.ajax({
+                    url: '/hrmanagement/' + btnaction + '/' + inputID,
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        firstname, lastname, address, email, phone, gender, shareholderstatus, benefits
+                    }),
+                    success: function (response) {
+                        if (response.success == true)
+                            alert('Successfully')
+                        else alert('Failed')
+                        location.reload()
+                    }
+                });
+            })
+            $('button.btndelete').on('click', function () {
+                var inputID = $('#popupdelete input[name="id"]').val();
+                $.ajax({
+                    url: '/hrmanagement/delete/' + inputID,
+                    method: 'POST',
+                    success: function (response) {
+                        if (response.success == true)
+                            alert('Delete employee successfully')
+                        else alert('Delete employee failed')
+                        location.reload()
+                    }
+                });
+            })
+
+        });
+    </script>
+</body>
+
+</html>
