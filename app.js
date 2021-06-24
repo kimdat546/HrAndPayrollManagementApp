@@ -41,8 +41,8 @@ app.set('view engine', 'ejs')
 app.get('/', async (req, res) => {
     const department = await mssql.query`select Department from Job_History`
     let result1, result2
-    result1 = await mssql.query`select Personal.Employee_ID, First_Name, Last_Name,
-    Gender, Ethnicity,Benefit_Plans,Salary,Percentage_CoPay,Department 
+    result1 = await mssql.query`select Personal.Employee_ID, First_Name, Last_Name, Middle_Initial,
+    Gender, Ethnicity,Plan_Name,Salary,Percentage_CoPay,Department 
     from Personal,Benefit_Plans,Job_History 
     where Personal.Benefit_Plans = Benefit_Plans.Benefit_Plan_ID 
     and Personal.Employee_ID = Job_History.Employee_ID`
@@ -57,7 +57,7 @@ app.get('/', async (req, res) => {
 app.get('/information', async (req, res) => {
     const department = await mssql.query`select Department from Job_History`
     let result1, result2
-    result1 = await mssql.query`select Personal.Employee_ID, First_Name, Last_Name,
+    result1 = await mssql.query`select Personal.Employee_ID, First_Name, Last_Name, Middle_Initial,
     Gender, Ethnicity,Plan_Name,Salary,Percentage_CoPay,Department 
     from Personal,Benefit_Plans,Job_History 
     where Personal.Benefit_Plans = Benefit_Plans.Benefit_Plan_ID 
@@ -70,24 +70,38 @@ app.get('/information', async (req, res) => {
     res.render('information', { department: department.recordset, result })
 })
 app.get('/hrmanagement', async (req, res) => {
-    const shareholder = await mssql.query`select Plan_Name from Benefit_Plans`
-    let result
-    result = await mssql.query`select Employee_ID, First_Name, Last_Name,
+    const benefitplans = await mssql.query`select Benefit_Plan_ID, Plan_Name from Benefit_Plans`
+    payrates = await ExecuteMysql(`SELECT idpayrates, payamount FROM payrates`)
+    let result1, result2
+    result1 = await mssql.query`select Personal.Employee_ID, First_Name, Last_Name, Middle_Initial,
+    Ethnicity,Salary,Percentage_CoPay,Department,
     Address, Email, Phone_Number, Gender, Shareholder_Status, Plan_Name
-    from Personal,Benefit_Plans
-    where Personal.Benefit_Plans = Benefit_Plans.Benefit_Plan_ID`
-    result = result.recordset
-    res.render('hrmanagement', { shareholder: shareholder.recordset, result })
+    from Personal,Benefit_Plans,Job_History
+    where Personal.Benefit_Plans = Benefit_Plans.Benefit_Plan_ID
+    and Personal.Employee_ID = Job_History.Employee_ID`
+    result1 = result1.recordset
+    result2 = await ExecuteMysql(`SELECT employee.Employee_ID, vacationdays, payrates.idpayrates, payamount 
+    FROM employee,payrates 
+    where employee.idpayrates = payrates.idpayrates`)
+    var result = merge(result1, result2)
+    res.render('hrmanagement', { benefitplans: benefitplans.recordset, result , payrates})
 })
 app.post('/hrmanagement/add', async (req, res) => {
-    const { firstname, lastname, address, email, phone, gender, shareholderstatus, benefits } = req.body
+    const { firstname, middleinitial, lastname, address, email, phone, gender, shareholderstatus, benefits,
+        ethnicity, salary, department, vacationdays, payamount } = req.body
     const addEmployee = await mssql.query`INSERT INTO Personal 
-    (First_Name, Last_Name, Address, Email, Phone_Number, Gender, Shareholder_Status, Benefit_Plans)
-    VALUES (${firstname},${lastname},${address},${email},${phone},${gender},${shareholderstatus},${benefits})`
+    (First_Name, Last_Name, Middle_Initial, Address, Email, Phone_Number, Gender, Shareholder_Status,
+    Benefit_Plans, Ethnicity, Salary) 
+    VALUES (${firstname},${lastname},${middleinitial},${address},${email},
+    ${phone},${gender},${shareholderstatus},${benefits},${ethnicity},${salary})`
     let idemploy = await mssql.query`SELECT TOP 1 Employee_ID FROM Personal order by Employee_ID DESC`
     idemploy = await idemploy.recordset[0].Employee_ID
-    const addEmployee1 = await mssql.query`INSERT INTO Job_History (Employee_ID) VALUES (${idemploy})`
-    let sql = `INSERT INTO employee (Employee_ID, firstname, lastname) VALUES (${idemploy},'${firstname}','${lastname}')`
+
+    const addEmployee1 = await mssql.query`INSERT INTO Job_History (Employee_ID, Department) 
+    VALUES (${idemploy},${department})`
+
+    let sql = `INSERT INTO employee (Employee_ID, firstname, lastname, middleinitial, idpayrates, vacationdays) 
+    VALUES (${idemploy},'${firstname}','${lastname}','${middleinitial}','${payamount}','${vacationdays}')`
     console.log(idemploy, sql)
     let addmysql = await ExecuteMysql(sql)
     if (addEmployee.rowsAffected == 1) res.json({ success: true })
@@ -113,7 +127,10 @@ app.post('/hrmanagement/edit/:id', async (req, res) => {
 })
 app.post('/hrmanagement/delete/:id', async (req, res) => {
     const id = req.params.id
+    const addEmployee1 = await mssql.query`delete from Job_History where Employee_ID = ${id}`
     const deleteEmployee = await mssql.query`delete from Personal where Employee_ID = ${id}`
+    let sql = `DELETE FROM employee where Employee_ID = ${id}`
+    let addmysql = await ExecuteMysql(sql)
     if (deleteEmployee.rowsAffected == 1) res.json({ success: true })
     else res.json({ success: false })
 })

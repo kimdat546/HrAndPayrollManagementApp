@@ -1,5 +1,5 @@
-.content-wrapper>.content {
-    padding: 20px .5rem;
+.content-wrapper > .content {
+    padding: 20px 0.5rem;
 }
 .form-group {
     margin-bottom: 0px;
@@ -7,21 +7,24 @@
 .content-wrapper {
     background-color: #fff;
 }
-.gap{
-    padding:10px 0px;
+.gap {
+    padding: 10px 0px;
 }
-.btn-block+.btn-block {
+.btn-block + .btn-block {
     margin-top: 0px;
 }
-.select2-container .select2-selection--single{
+.select2-container .select2-selection--single {
     height: 38px;
     line-height: unset;
 }
-.select2-container--default .select2-selection--single .select2-selection__arrow{
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
     height: 37px;
     right: 6px;
 }
-table.dataTable>thead>tr>th:not(.sorting_disabled), table.dataTable>thead>tr>td:not(.sorting_disabled) {
+table.dataTable > thead > tr > th:not(.sorting_disabled),
+table.dataTable > thead > tr > td:not(.sorting_disabled) {
     padding-right: unset;
 }
 table.dataTable tbody tr.selected {
@@ -39,4 +42,21 @@ table.dataTable tbody tr.selected {
 }
 .info-box .info-box-content {
     color: #333;
+}
+.table th{
+    font-size: 14px;
+}
+.table td, .table th {
+    padding: 8px;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+}
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 90%;
+        margin: 1.75rem auto;
+    }
 }

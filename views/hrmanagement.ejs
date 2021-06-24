@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <select id="shareholder" class="form-control select2" style="width: 100%;">
                             <option></option>
-                            <% shareholder.forEach(function (item) { %>
+                            <% benefitplans.forEach(function (item) { %>
                                 <option value="<%- item.Plan_Name %>">
                                     <%- item.Plan_Name %>
                                 </option>
@@ -43,11 +43,12 @@
             <div class="row">
                 <div class="col-lg-12 col-12">
                     <div class="card">
-                        <table id="tablemanagement" class="table table-bordered table-hover">
+                        <table id="tablemanagement" class="table table-bordered table-hover" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>First Name</th>
+                                    <th>Middle Name</th>
                                     <th>Last Name</th>
                                     <th>Address</th>
                                     <th>Email</th>
@@ -55,6 +56,11 @@
                                     <th>Gender</th>
                                     <th>Shareholder Status</th>
                                     <th>Benefits</th>
+                                    <th>Ethnicity</th>
+                                    <th>Salary</th>
+                                    <th>Department</th>
+                                    <th>vacationdays</th>
+                                    <th>payamount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,6 +71,9 @@
                                         </td>
                                         <td>
                                             <%- item.First_Name %>
+                                        </td>
+                                        <td>
+                                            <%- item.Middle_Initial %>
                                         </td>
                                         <td>
                                             <%- item.Last_Name %>
@@ -87,6 +96,21 @@
                                         <td>
                                             <%- item.Plan_Name %>
                                         </td>
+                                        <td>
+                                            <%- item.Ethnicity %>
+                                        </td>
+                                        <td>
+                                            <%- item.Salary %>
+                                        </td>
+                                        <td>
+                                            <%- item.Department %>
+                                        </td>
+                                        <td>
+                                            <%- item.vacationdays %>
+                                        </td>
+                                        <td>
+                                            <%- item.idpayrates %>
+                                        </td>
                                     </tr>
                                     <% }); %>
                             </tbody>
@@ -94,6 +118,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>First Name</th>
+                                    <th>Middle Name</th>
                                     <th>Last Name</th>
                                     <th>Address</th>
                                     <th>Email</th>
@@ -101,6 +126,11 @@
                                     <th>Gender</th>
                                     <th>Shareholder Status</th>
                                     <th>Benefits</th>
+                                    <th>Ethnicity</th>
+                                    <th>Salary</th>
+                                    <th>Department</th>
+                                    <th>vacationdays</th>
+                                    <th>payamount</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -127,6 +157,10 @@
                             <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
                         </div>
                         <div class="form-group">
+                            <label>Middle Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Last Name" name="middleinitial">
+                        </div>
+                        <div class="form-group">
                             <label>Last Name</label>
                             <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
                         </div>
@@ -136,26 +170,75 @@
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="text" class="form-control" placeholder="Enter Email" name="email">
+                            <input type="email" class="form-control" placeholder="Enter Email" name="email">
                         </div>
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="text" class="form-control" placeholder="Enter Phone" name="phone">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control" data-inputmask='"mask": "(+99) 999999999"'
+                                    data-mask="" placeholder="Phone" name="phone">
+                            </div>
+                            <!-- /.input group -->
                         </div>
-                        <div class="form-group">
+                        <div class="form-group clearfix">
                             <label>Gender</label>
-                            <input type="text" class="form-control" placeholder="Enter Gender" name="gender">
+                            <div class="icheck-primary">
+                              <input type="radio" id="male" name="gender" checked="" value="true">
+                              <label for="male">Male
+                              </label>
+                            </div>
+                            <div class="icheck-primary">
+                              <input type="radio" id="female" name="gender" value="false">
+                              <label for="female">Female
+                              </label>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Shareholder Status</label>
-                            <input type="text" class="form-control" placeholder="Enter Shareholder Status"
-                                name="shareholderstatus">
+                            <select class="form-control select2" style="width: 100%;" name="shareholderstatus">
+                                <option value="true" selected="selected">True</option>
+                                <option value="false">False</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Benefits</label>
-                            <input type="text" class="form-control" placeholder="Enter Benefits" name="benefits">
+                            <select class="form-control select2" style="width: 100%;" name="benefits">
+                                <% benefitplans.forEach(function (item) { %>
+                                    <option value="<%- item.Benefit_Plan_ID %>">
+                                        <%- item.Plan_Name %>
+                                    </option>
+                                    <% }); %>
+                            </select>
                         </div>
-
+                        <div class="form-group">
+                            <label>Ethnicity</label>
+                            <input type="text" class="form-control" placeholder="Enter Ethnicity" name="ethnicity">
+                        </div>
+                        <div class="form-group">
+                            <label>Salary</label>
+                            <input type="number" class="form-control" placeholder="Enter Salary" name="salary">
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input type="text" class="form-control" placeholder="Enter Department" name="department">
+                        </div>
+                        <div class="form-group">
+                            <label>Vacationdays</label>
+                            <input type="number" class="form-control" placeholder="Enter Vacationdays" name="vacationdays">
+                        </div>
+                        <div class="form-group">
+                            <label>ID Payamount</label>
+                            <select class="form-control select2" style="width: 100%;" name="payamount">
+                                <% payrates.forEach(function (item) { %>
+                                    <option value="<%- item.idpayrates %>">
+                                        <%- item.payamount %>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btnclose btn btn-default" data-dismiss="modal">Close</button>

@@ -72,6 +72,8 @@
     <!-- daterangepicker -->
     <script src="plugins/moment/moment.min.js"></script>
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- InputMask -->
+    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summernote -->
@@ -144,7 +146,29 @@
                 allowClear: true
             })
             const tablemanagement = $("#tablemanagement").DataTable({
-                "dom": 'rtp '
+                "dom": 'rtp ',
+                "columnDefs": [
+                    {
+                        "targets": [10],
+                        "visible": false
+                    },
+                    {
+                        "targets": [11],
+                        "visible": false
+                    },
+                    {
+                        "targets": [12],
+                        "visible": false
+                    },
+                    {
+                        "targets": [13],
+                        "visible": false
+                    },
+                    {
+                        "targets": [14],
+                        "visible": false
+                    }
+                ]
             })
 
             $('#button').click(function () {
@@ -154,7 +178,7 @@
                 tablemanagement.columns(0).search(this.value).draw()
             })
             $('#shareholder').on('change', function () {
-                tablemanagement.columns(8).search(this.value).draw()
+                tablemanagement.columns(9).search(this.value).draw()
             })
             var datarow = undefined
             $('#tablemanagement tbody').on('click', 'tr', function () {
@@ -182,17 +206,22 @@
                         if (datarow) {
                             modal.find('.modal-body input[name="id"]').val(datarow[0])
                             modal.find('.modal-body input[name="firstname"]').val(datarow[1])
-                            modal.find('.modal-body input[name="lastname"]').val(datarow[2])
-                            modal.find('.modal-body input[name="address"]').val(datarow[3])
-                            modal.find('.modal-body input[name="email"]').val(datarow[4])
-                            modal.find('.modal-body input[name="phone"]').val(datarow[5])
-                            modal.find('.modal-body input[name="gender"]').val(datarow[6])
-                            modal.find('.modal-body input[name="shareholderstatus"]').val(datarow[7])
-                            modal.find('.modal-body input[name="benefits"]').val(datarow[8])
+                            modal.find('.modal-body input[name="middleinitial"]').val(datarow[2])
+                            modal.find('.modal-body input[name="lastname"]').val(datarow[3])
+                            modal.find('.modal-body input[name="address"]').val(datarow[4])
+                            modal.find('.modal-body input[name="email"]').val(datarow[5])
+                            modal.find('.modal-body input[name="phone"]').val(datarow[6])
+                            modal.find('.modal-body input[name=gender][value="'+datarow[7]+'"]').prop('checked', true)
+                            modal.find('.modal-body select[name="shareholderstatus"]').val(datarow[8])
+                            modal.find('.modal-body input[name="ethnicity"]').val(datarow[10])
+                            modal.find('.modal-body input[name="salary"]').val(datarow[11])
+                            modal.find('.modal-body input[name="department"]').val(datarow[12])
+                            modal.find('.modal-body input[name="vacationdays"]').val(datarow[13])
+                            modal.find('.modal-body select[name="payamount"]').val(datarow[14])
                             modal.find('.modal-footer button.btnok').attr('action', 'edit')
                         }
                         else {
-                            alert('Please select a row')
+                            alert('Please select a row') 
                         }
                     }
                         break;
@@ -217,19 +246,27 @@
                 let btnaction = $('button.btnok').attr("action")
                 let inputID = $('#popupmana input[name="id"]').val();
                 let firstname = $('#popupmana input[name="firstname"]').val();
+                let middleinitial = $('#popupmana input[name="middleinitial"]').val();
                 let lastname = $('#popupmana input[name="lastname"]').val();
                 let address = $('#popupmana input[name="address"]').val();
                 let email = $('#popupmana input[name="email"]').val();
                 let phone = $('#popupmana input[name="phone"]').val();
-                let gender = $('#popupmana input[name="gender"]').val();
-                let shareholderstatus = $('#popupmana input[name="shareholderstatus"]').val();
-                let benefits = $('#popupmana input[name="benefits"]').val();
+                let gender = $('#popupmana input[name="gender"]:checked').val();
+                let shareholderstatus = $('#popupmana select[name="shareholderstatus"]').val();
+                let benefits = $('#popupmana select[name="benefits"]').val();
+                let ethnicity = $('#popupmana input[name="ethnicity"]').val();
+                let salary = $('#popupmana input[name="salary"]').val();
+                let department = $('#popupmana input[name="department"]').val();
+                let vacationdays = $('#popupmana input[name="vacationdays"]').val();
+                let payamount = $('#popupmana select[name="payamount"]').val();
+
                 $.ajax({
                     url: '/hrmanagement/' + btnaction + '/' + inputID,
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        firstname, lastname, address, email, phone, gender, shareholderstatus, benefits
+                        firstname, middleinitial, lastname, address, email, phone, gender, shareholderstatus,
+                        benefits, ethnicity, salary, department, vacationdays, payamount
                     }),
                     success: function (response) {
                         if (response.success == true)
@@ -251,6 +288,13 @@
                         location.reload()
                     }
                 });
+            })
+
+            $('[data-mask]').inputmask()
+
+            $('.select2').select2({
+                placeholder: "Select",
+                allowClear: true
             })
 
         });
