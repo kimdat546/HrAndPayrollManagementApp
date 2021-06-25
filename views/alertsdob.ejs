@@ -1,0 +1,70 @@
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content mt-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-danger"><i class="fas fa-birthday-cake"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Birthday</span>
+                            <span class="info-box-text">Display the list of employees with birthdays in the month
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <!-- <div class="form-group">
+                        <select id="searchdob" class="form-control select2" style="width: 100%;">
+                            <option value="1">Tháng 1</option>
+                            <option value="2">Tháng 2</option>
+                            <option value="3">Tháng 3</option>
+                            <option value="4">Tháng 4</option>
+                            <option value="5">Tháng 5</option>
+                        </select>
+                    </div> -->
+                </div>
+                <div class="col-lg-12 col-12">
+                    <table id="dob" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Birthday</th>
+                                <th>month</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% result.forEach(function (item) { %>
+                                <tr>
+                                    <td>
+                                        <%- item.Employee_ID %>
+                                    </td>
+                                    <td>
+                                        <%- item.First_Name %> <%- item.Middle_Initial %> <%- item.Last_Name %>
+                                    </td>
+                                    <td>
+                                        <%- item.dayofbirth %>
+                                    </td>
+                                    <td>
+                                        <%- item.month %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Birthday</th>
+                                <th>month</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>

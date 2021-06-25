@@ -61,6 +61,7 @@
                                     <th>Department</th>
                                     <th>vacationdays</th>
                                     <th>payamount</th>
+                                    <th>dayofbirth</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,6 +112,9 @@
                                         <td>
                                             <%- item.idpayrates %>
                                         </td>
+                                        <td>
+                                            <%- item.dayofbirth %>
+                                        </td>
                                     </tr>
                                     <% }); %>
                             </tbody>
@@ -131,6 +135,7 @@
                                     <th>Department</th>
                                     <th>vacationdays</th>
                                     <th>payamount</th>
+                                    <th>dayofbirth</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -239,6 +244,16 @@
                                     <% }); %>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Day of birth</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                              </div>
+                              <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-mask="" name="dayofbirth">
+                            </div>
+                            <!-- /.input group -->
+                          </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btnclose btn btn-default" data-dismiss="modal">Close</button>

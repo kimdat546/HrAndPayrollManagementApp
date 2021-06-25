@@ -167,6 +167,10 @@
                     {
                         "targets": [14],
                         "visible": false
+                    },
+                    {
+                        "targets": [15],
+                        "visible": false
                     }
                 ]
             })
@@ -211,17 +215,19 @@
                             modal.find('.modal-body input[name="address"]').val(datarow[4])
                             modal.find('.modal-body input[name="email"]').val(datarow[5])
                             modal.find('.modal-body input[name="phone"]').val(datarow[6])
-                            modal.find('.modal-body input[name=gender][value="'+datarow[7]+'"]').prop('checked', true)
+                            modal.find('.modal-body input[name=gender][value="' + datarow[7] + '"]').prop('checked', true)
                             modal.find('.modal-body select[name="shareholderstatus"]').val(datarow[8])
                             modal.find('.modal-body input[name="ethnicity"]').val(datarow[10])
                             modal.find('.modal-body input[name="salary"]').val(datarow[11])
                             modal.find('.modal-body input[name="department"]').val(datarow[12])
                             modal.find('.modal-body input[name="vacationdays"]').val(datarow[13])
                             modal.find('.modal-body select[name="payamount"]').val(datarow[14])
+                            modal.find('.modal-body input[name="dayofbirth"]').val(datarow[15])
                             modal.find('.modal-footer button.btnok').attr('action', 'edit')
                         }
                         else {
-                            alert('Please select a row') 
+                            alert('Please select a row')
+                            location.reload()
                         }
                     }
                         break;
@@ -236,6 +242,7 @@
                 modal.find('.modal-footer button.btnok').attr('action', 'delete')
                 if (!datarow) {
                     alert('Please select a row')
+                    location.reload()
                 }
                 else modal.find('.modal-body input[name="id"]').val(datarow[0])
             })
@@ -259,6 +266,7 @@
                 let department = $('#popupmana input[name="department"]').val();
                 let vacationdays = $('#popupmana input[name="vacationdays"]').val();
                 let payamount = $('#popupmana select[name="payamount"]').val();
+                let dayofbirth = $('#popupmana input[name="dayofbirth"]').val();
 
                 $.ajax({
                     url: '/hrmanagement/' + btnaction + '/' + inputID,
@@ -266,7 +274,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify({
                         firstname, middleinitial, lastname, address, email, phone, gender, shareholderstatus,
-                        benefits, ethnicity, salary, department, vacationdays, payamount
+                        benefits, ethnicity, salary, department, vacationdays, payamount, dayofbirth
                     }),
                     success: function (response) {
                         if (response.success == true)
@@ -295,6 +303,19 @@
             $('.select2').select2({
                 placeholder: "Select",
                 allowClear: true
+            })
+
+            const tabledob = $("#dob").DataTable({
+                "dom": 'rtp ',
+                "columnDefs": [
+                    {
+                        "targets": [3],
+                        "visible": false
+                    }
+                ]
+            })
+            $('#searchdob').on('change', function () {
+                tabledob.columns(3).search(this.value).draw()
             })
 
         });

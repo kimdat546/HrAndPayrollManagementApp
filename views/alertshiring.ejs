@@ -1,0 +1,52 @@
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content mt-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-warning"><i class="fas fa-handshake"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Hiring Aniversary</span>
+                                <span class="info-box-text">Show list of employees who have worked for more than 1 year
+                                </span>
+                            </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Hire Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% result.forEach(function (item) { %>
+                                <tr>
+                                    <td>
+                                        <%- item.Employee_ID %>
+                                    </td>
+                                    <td>
+                                        <%- item.First_Name %> <%- item.Middle_Initial %> <%- item.Last_Name %>
+                                    </td>
+                                    <td>
+                                        <%- item.hiredate %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Hire Date</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>

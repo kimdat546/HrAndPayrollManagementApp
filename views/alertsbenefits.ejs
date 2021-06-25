@@ -5,12 +5,10 @@
             <div class="row">
                 <div class="col-lg-12 col-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-success"><i class="fas fa-plane-departure"></i></span>
-
+                        <span class="info-box-icon bg-info"><i class="fas fa-dollar-sign"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Vacation days</span>
-                            <span class="info-box-number">
-                                <%- result.length %>
+                            <span class="info-box-text">Change benefits</span>
+                            <span class="info-box-text">Show list of employees who change benefit plan
                             </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -19,9 +17,9 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Vacation days</th>
+                                <th>Name</th>
+                                <th>Benefit New</th>
+                                <th>Benefit Old</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,13 +29,13 @@
                                         <%- item.Employee_ID %>
                                     </td>
                                     <td>
-                                        <%- item.firstname %>
+                                        <%- item.First_Name %> <%- item.Middle_Initial %> <%- item.Last_Name %>
                                     </td>
                                     <td>
-                                        <%- item.lastname %>
+                                        <%- item.benefitnew %>
                                     </td>
                                     <td>
-                                        <%- item.vacationdays %>
+                                        <%- item.benefitold %>
                                     </td>
                                 </tr>
                                 <% }); %>
@@ -45,9 +43,9 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Vacation days</th>
+                                <th>Name</th>
+                                <th>Benefit New</th>
+                                <th>Benefit Old</th>
                             </tr>
                         </tfoot>
                     </table>

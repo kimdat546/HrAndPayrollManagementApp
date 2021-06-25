@@ -1,0 +1,53 @@
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content mt-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success"><i class="fas fa-plane-departure"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Vacation days</span>
+                            <span class="info-box-text">Filter the number of employees whose remaining days of leave exceed 10
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Vacation days</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% result.forEach(function (item) { %>
+                                <tr>
+                                    <td>
+                                        <%- item.Employee_ID %>
+                                    </td>
+                                    <td>
+                                        <%- item.firstname %> <%- item.middleinitial %> <%- item.lastname %>
+                                    </td>
+                                    <td>
+                                        <%- item.vacationdays %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Vacation days</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
