@@ -84,9 +84,6 @@ app.get('/hrmanagement', async (req, res) => {
     FROM employee,payrates 
     where employee.idpayrates = payrates.idpayrates`)
     var result = merge(result1, result2)
-    console.log(result1)
-    console.log(result2)
-    console.log(result)
     res.render('hrmanagement', { benefitplans: benefitplans.recordset, result, payrates })
 })
 app.post('/hrmanagement/add', async (req, res) => {
@@ -105,7 +102,7 @@ app.post('/hrmanagement/add', async (req, res) => {
 
     let sql = `INSERT INTO employee (Employee_ID, firstname, lastname, middleinitial, idpayrates, vacationdays) 
     VALUES (${idemploy},'${firstname}','${lastname}','${middleinitial}','${payamount}','${vacationdays}')`
-    console.log(idemploy, sql)
+    
     let addmysql = await ExecuteMysql(sql)
     if (addEmployee.rowsAffected == 1) res.json({ success: true })
     else res.json({ success: false })
@@ -117,7 +114,7 @@ app.post('/hrmanagement/edit/:id', async (req, res) => {
 
     let benefitold = await mssql.query`select Benefit_Plans from Personal where Employee_ID = ${id}`
     benefitold = benefitold.recordset[0].Benefit_Plans
-    console.log(benefitold)
+    
     let editEmployee
     if (benefitold != benefits) {
         editEmployee = await mssql.query`UPDATE Personal
@@ -152,7 +149,6 @@ app.post('/hrmanagement/edit/:id', async (req, res) => {
     WHERE Employee_ID = ${id}`
     }
 
-    console.log(phone)
     const editEmployee1 = await mssql.query`UPDATE Job_History 
     SET Department = ${department} WHERE Employee_ID = ${id}`
 
@@ -186,13 +182,13 @@ app.get('/alerts', async (req, res) => {
     result3 = result3.recordset[0].hire
     result4 = await mssql.query`select COUNT(Employee_ID) as benefit from Personal WHERE NOT Benefit_old = 0`
     result4 = result4.recordset[0].benefit
-    console.log(result4)
+    
     res.render('alerts', { result1, result2, result3, result4 })
 })
 app.get('/alertsvacationdays', async (req, res) => {
     result = await ExecuteMysql(`SELECT Employee_ID,firstname,lastname,middleinitial,vacationdays from employee where vacationdays > 10`)
     result = result
-    console.log(result)
+   
     res.render('alertsvacationdays', { result })
 })
 app.get('/alertsdob', async (req, res) => {
@@ -206,7 +202,7 @@ app.get('/alertshiring', async (req, res) => {
     FORMAT(Hire_Date,'dd/MM/yyyy') as hiredate from Personal,Employment 
     WHERE DATEDIFF(day, Hire_Date,GETDATE()) >= 365 and Personal.Employee_ID = Employment.Employee_ID`
     result = result.recordset
-    console.log(result)
+    
     res.render('alertshiring', { result })
 })
 app.get('/alertsbenefits', async (req, res) => {
@@ -217,7 +213,7 @@ app.get('/alertsbenefits', async (req, res) => {
     WHERE NOT Benefit_old = 0 AND Personal.Benefit_old = Benefit_Plans.Benefit_Plan_ID`
     result2 = result2.recordset
     var result = merge(result1, result2)
-    console.log(result)
+   
     res.render('alertsbenefits', { result })
 })
 
